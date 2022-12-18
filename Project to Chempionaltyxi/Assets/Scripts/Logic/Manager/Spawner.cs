@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private ReactiveTarget _enemyPrefab;
-    [SerializeField] private PlayerHealthable _playerCharacter;
+    [SerializeField] private SceneUI _playerCharacter;
 
     [Header("Настройка волн: ")]
     [SerializeField] private List<int> _wavesEnemiesCount;
