@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,9 +13,12 @@ public class MovePlayer : MonoBehaviour
     
     private bool isGrounded;
 
-    private void Start()
+    private void Awake()
     {
-        
+        // Не забываем ставить тэг Main Camera на камеру!
+        // Находим на сцене и говорим следить за нами
+        if (Camera.main.TryGetComponent(out CameraFollow cameraFollowScript))
+            cameraFollowScript.SetTarget(transform);
     }
 
     private void Update()
