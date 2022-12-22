@@ -2,9 +2,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour, ICoroutineRunner
 {
-    [SerializeField] private ReactiveTarget _enemyPrefab;
+    [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private SceneUI _playerCharacter;
 
     [Header("Настройка волн: ")]
@@ -53,13 +53,13 @@ public class Spawner : MonoBehaviour
 
         int index = (_spawnerIndex++) % _wavesEnemiesPoints.Count;
 
-        ReactiveTarget _enemy = Instantiate(_enemyPrefab,
+        var _enemy = Instantiate(_enemyPrefab,
             _wavesEnemiesPoints[index].position, 
             Quaternion.identity);
 
         _enemy.transform.Rotate(0, Random.Range(0, 360), 0);
 
         // Подписываемся на смерть врага
-        _enemy.EnemyDied = _playerCharacter.UpdateKillCount;
+        //_enemy.EnemyDied = _playerCharacter.UpdateKillCount;
     }
 }

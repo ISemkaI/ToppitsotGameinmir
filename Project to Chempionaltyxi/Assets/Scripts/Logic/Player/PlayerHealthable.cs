@@ -17,8 +17,8 @@ public class PlayerHealthable : MonoBehaviour
 
         if (collision.TryGetComponent(out Fireball fireball))
             health -= fireball.Damage;
-        else if (collision.TryGetComponent(out ReactiveTarget reactive))
-            health -= reactive.Damage;
+/*        else if (collision.TryGetComponent(out ReactiveTarget reactive))
+            health -= reactive.Damage;*/
         hptext.text = health.ToString();
 
         UI.Die();
