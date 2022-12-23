@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
@@ -12,14 +13,23 @@ public class EnemyStateMachine : IStateSwitcher
 
     private readonly PhysicsEventAdapter _physicsEventAdapter;
     private readonly NavMeshAgent _navMeshAgent;
-        
+
+    private readonly IHealthable _healthable;
+    private readonly IAnimatable _animatable;
+
+    public event Action EnemyDied;
+
     #region STATE_MACHINE
     private readonly List<IState> _enemyStates;
     private IState _currentState;
     #endregion
 
-    public EnemyStateMachine(ICoroutineRunner coroutineRunner, Transform enemy, Transform player, PhysicsEventAdapter physicsEventAdapter, NavMeshAgent navMeshAgent)
+    public EnemyStateMachine(IHealthable healthable, IAnimatable animatable, ICoroutineRunner coroutineRunner, Transform enemy,
+        Transform player, PhysicsEventAdapter physicsEventAdapter, NavMeshAgent navMeshAgent)
     {
+        _healthable = healthable;
+        _animatable = animatable;
+
         _coroutineRunner = coroutineRunner;
         _enemy = enemy;
         _player = player;
@@ -31,7 +41,16 @@ public class EnemyStateMachine : IStateSwitcher
         {
             new EnemyMovementState(this, enemy, player, navMeshAgent, physicsEventAdapter),
             new EnemyShootingState(this, coroutineRunner, enemy, player, physicsEventAdapter),
+            new EnemyDyingState(this, _animatable, EnemyDied),
         };
+
+        SubscribeOnDeath();
+    }
+
+    // Отписываемся от событий
+    ~EnemyStateMachine()
+    {
+        UnSubscribeOnDeath();
     }
 
     // Выходим из прежнего состояния, входим в новое.
@@ -42,4 +61,14 @@ public class EnemyStateMachine : IStateSwitcher
         _currentState = _enemyStates.FirstOrDefault(x => x is IState);
         _currentState.Enter();
     }
+
+    private void SubscribeOnDeath() 
+        => _healthable.DiedEvent?.AddListener(SubscriptionOnDeath);
+
+    private void SubscriptionOnDeath() 
+        => SwitchState<EnemyDyingState>();
+
+    private void UnSubscribeOnDeath()
+        => _healthable.DiedEvent?.RemoveListener(SubscriptionOnDeath);
+
 }

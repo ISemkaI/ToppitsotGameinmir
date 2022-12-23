@@ -42,7 +42,7 @@ public class EnemyMovementState : IState
         _navMeshAgent.isStopped = true;
         FaceToPlayer();
 
-        _stateSwitcher.SwitchState<EnemyMovementState>();
+        _stateSwitcher.SwitchState<EnemyShootingState>();
     }
 
     private void FaceToPlayer()
