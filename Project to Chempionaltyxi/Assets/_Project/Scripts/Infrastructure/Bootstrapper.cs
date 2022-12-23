@@ -5,6 +5,9 @@ using UnityEngine;
 // Указан первым в исполнении Script Execution Order.
 public class Bootstrapper : MonoBehaviour
 {
+    [SerializeField] private GameObject _enemyProjectilePrefab;
+    [SerializeField] private GameObject _playerProjectilePrefab;
+
     // Инициализируем сервис-локатор через статику (там конструктор в свойстве)
     private readonly AllServices _allServices = AllServices.Instance; 
 
@@ -30,6 +33,9 @@ public class Bootstrapper : MonoBehaviour
 #else
         _allServices.RegisterService<IInputService>(new InputServiceVR());
 #endif
+
+        _allServices.RegisterService<IFactoryEnemyProjectile>(new ProjectileEnemyFactoryService(_enemyProjectilePrefab));
+        _allServices.RegisterService<IFactoryProjectile>(new ProjectilePlayerFactoryService(_enemyProjectilePrefab));
 
     }
 }

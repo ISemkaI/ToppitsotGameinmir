@@ -16,6 +16,7 @@ public class EnemyStateMachine : IStateSwitcher
 
     private readonly IHealthable _healthable;
     private readonly IAnimatable _animatable;
+    private readonly IShootable _shootable;
 
     public event Action EnemyDied;
 
@@ -24,8 +25,9 @@ public class EnemyStateMachine : IStateSwitcher
     private IState _currentState;
     #endregion
 
-    public EnemyStateMachine(IHealthable healthable, IAnimatable animatable, ICoroutineRunner coroutineRunner, Transform enemy,
-        Transform player, PhysicsEventAdapter physicsEventAdapter, NavMeshAgent navMeshAgent)
+    public EnemyStateMachine(IHealthable healthable, IAnimatable animatable, IShootable shootable, 
+        ICoroutineRunner coroutineRunner, Transform enemy, Transform player, PhysicsEventAdapter physicsEventAdapter, 
+        NavMeshAgent navMeshAgent)
     {
         _healthable = healthable;
         _animatable = animatable;
@@ -40,11 +42,12 @@ public class EnemyStateMachine : IStateSwitcher
         _enemyStates = new List<IState>
         {
             new EnemyMovementState(this, enemy, player, navMeshAgent, physicsEventAdapter),
-            new EnemyShootingState(this, coroutineRunner, enemy, player, physicsEventAdapter),
+            new EnemyShootingState(this, _shootable, coroutineRunner, enemy, player),
             new EnemyDyingState(this, _animatable, EnemyDied),
         };
 
         SubscribeOnDeath();
+        _shootable = shootable;
     }
 
     // Отписываемся от событий
