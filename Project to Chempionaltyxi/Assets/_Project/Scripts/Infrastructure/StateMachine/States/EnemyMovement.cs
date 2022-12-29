@@ -37,7 +37,7 @@ public class EnemyMovementState : IState
 
     // Слой триггера: TriggerEnemyStop
     // Слой врага: Enemy
-    private void OnTriggerStopEnter()
+    private void OnTriggerStopEnter(Collider other)
     {
         _navMeshAgent.isStopped = true;
         FaceToPlayer();
@@ -50,22 +50,4 @@ public class EnemyMovementState : IState
         _enemy.LookAt(_player.position);
         _enemy.localEulerAngles = new Vector3(0f, _player.localEulerAngles.y, 0f);
     }
-
-    /*    private void EnterShotingState()
-        {
-            // Разворачиваем врага к персонажу только по оси y (лицом).
-            transform.LookAt(Player.position);
-            transform.localEulerAngles = new Vector3(0f, transform.localEulerAngles.y, 0f);
-
-        }
-
-        IEnumerator ShootingRoutine()
-        {
-            while (true)
-            {
-                yield return null;
-            }
-        }*/
-
-
 }

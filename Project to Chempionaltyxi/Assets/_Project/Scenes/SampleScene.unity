@@ -2696,6 +2696,8 @@ GameObject:
   - component: {fileID: 613450925}
   - component: {fileID: 613450924}
   - component: {fileID: 613450928}
+  - component: {fileID: 613450929}
+  - component: {fileID: 613450930}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -2777,7 +2779,8 @@ Transform:
   m_LocalPosition: {x: 33.34, y: -0.04, z: -4.1}
   m_LocalScale: {x: 1, y: 2.8387764, z: 1.2136}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1990565247}
   m_Father: {fileID: 1512951474}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2803,6 +2806,40 @@ NavMeshAgent:
   m_BaseOffset: 0.49999997
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &613450929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613450923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 559b0738d29cce54283b7c928f4bd079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 100
+  _updateUIText: 0
+  DiedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  DamageTakenEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &613450930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613450923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e83ba27b91a125439df36af0eb60882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shootingPoint: {fileID: 1990565247}
+  _cooldown: 2
 --- !u!1001 &647845468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3834,9 +3871,8 @@ GameObject:
   - component: {fileID: 782122713}
   - component: {fileID: 782122711}
   - component: {fileID: 782122712}
-  - component: {fileID: 782122708}
-  - component: {fileID: 782122717}
   - component: {fileID: 782122716}
+  - component: {fileID: 782122717}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3844,20 +3880,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &782122708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782122705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2dcc2dbe870fb641866d02d541ca3c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 782122711}
-  speedJump: 2
 --- !u!143 &782122711
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3979,11 +4001,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 782122705}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7539d37a7402e4349803ac7a4ad1d487, type: 3}
+  m_Script: {fileID: 11500000, guid: 559b0738d29cce54283b7c928f4bd079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI: {fileID: 2002893071}
-  health: 100
+  _health: 100
+  _updateUIText: 1
+  DiedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  DamageTakenEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &782200082
 GameObject:
   m_ObjectHideFlags: 0
@@ -7559,6 +7587,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eafc74744e6f6ae4691dcf766d5383b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyProjectilePrefab: {fileID: 1208167083171168597, guid: 86aa025f7eaf13344a13c7867ff609e4, type: 3}
+  _playerProjectilePrefab: {fileID: 1208167083171168597, guid: 86aa025f7eaf13344a13c7867ff609e4, type: 3}
 --- !u!4 &1447240145
 Transform:
   m_ObjectHideFlags: 0
@@ -10041,6 +10071,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d8eafda27f93954dbeec65a7097b93b, type: 3}
+--- !u!1 &1990565246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1990565247}
+  m_Layer: 7
+  m_Name: Shooting Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1990565247
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990565246}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.315, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 613450927}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2002893066
 GameObject:
   m_ObjectHideFlags: 0
@@ -10161,10 +10222,8 @@ MonoBehaviour:
   WinImage: {fileID: 72018620}
   DieImage: {fileID: 834252153}
   UIInterface: {fileID: 560330258}
-  PlayerHealth: {fileID: 782122717}
   Hptext: {fileID: 1604605140}
   Killertext: {fileID: 755769769}
-  Health: 100
   KillsToWin: 6
 --- !u!1001 &2021764401
 PrefabInstance:

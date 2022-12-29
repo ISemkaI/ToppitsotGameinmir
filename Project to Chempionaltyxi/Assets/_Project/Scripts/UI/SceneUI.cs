@@ -13,10 +13,10 @@ public class SceneUI : MonoBehaviour
     public GameObject WinImage;
     public GameObject DieImage;
     public GameObject UIInterface;
-    public PlayerHealthable PlayerHealth;
+
     public Text Hptext;
     public Text Killertext;
-    public int Health = 100;
+
     public int KillsToWin = 0;
 
     private int _kills = 0;
@@ -27,6 +27,9 @@ public class SceneUI : MonoBehaviour
         Killertext.text = _kills.ToString();
         WinCheck();
     }
+
+    public void UpdateHealth(float health) 
+        => Hptext.text = Mathf.Floor(health).ToString();
 
     private IEnumerator Win()
     {
@@ -39,12 +42,9 @@ public class SceneUI : MonoBehaviour
 
     }
 
-    public void Die()
+    public void DieAnimationUI()
     {
-        if (Health <= 0)
-            StartCoroutine(DieUI());
-            
-    
+        StartCoroutine(DieUI());
     }
 
     private IEnumerator DieUI(){
@@ -56,10 +56,6 @@ public class SceneUI : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    private void Update()
-    {
-        Health = PlayerHealth.health;
-    }
 
     private void WinCheck()
     {

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyShootingState : IState
 {
-    private readonly IStateSwitcher _stateSwitcher;
     private readonly ICoroutineRunner _coroutineRunner;
     private readonly IShootable _shootable;
 
@@ -12,10 +11,8 @@ public class EnemyShootingState : IState
 
     private Coroutine _shootingCoroutine;
 
-    public EnemyShootingState(EnemyStateMachine enemyStateMachine, IShootable shootable, 
-        ICoroutineRunner coroutineRunner, Transform player)
+    public EnemyShootingState(IShootable shootable, ICoroutineRunner coroutineRunner, Transform player)
     {
-        _stateSwitcher = enemyStateMachine;
         _coroutineRunner = coroutineRunner;
         _shootable = shootable;
 

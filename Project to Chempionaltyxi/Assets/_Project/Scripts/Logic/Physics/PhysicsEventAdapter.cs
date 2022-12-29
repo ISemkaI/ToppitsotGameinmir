@@ -7,8 +7,15 @@ using UnityEngine.Events;
 public class PhysicsEventAdapter : MonoBehaviour
 {
     [HideInInspector]
-    public UnityEvent TriggerEnterEvent;
+    public UnityEvent<Collider> TriggerEnterEvent;
+
+    [HideInInspector]
+    public UnityEvent<Collision> CollisionEnterEvent;
 
     private void OnTriggerEnter(Collider other) 
-        => TriggerEnterEvent?.Invoke();
+        => TriggerEnterEvent?.Invoke(other);
+
+    private void OnCollisionEnter(Collision collision)
+        => CollisionEnterEvent?.Invoke(collision);
+
 }

@@ -1,16 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemySpawner : MonoBehaviour, ICoroutineRunner
 {
     [SerializeField] private GameObject _enemyPrefab;
-    [SerializeField] private SceneUI _playerCharacter;
+    [SerializeField] private Transform _player;
+
 
     [Header("Настройка волн: ")]
     [SerializeField] private List<int> _wavesEnemiesCount;
     [SerializeField] private List<float> _wavesTime;
     [SerializeField] private List<Transform> _wavesEnemiesPoints;
+
+    private readonly List<EnemyStateMachine> _enemies = new List<EnemyStateMachine>();
 
     private Coroutine _spawnerRoutine;
     private int _spawnerIndex;
@@ -19,10 +23,6 @@ public class EnemySpawner : MonoBehaviour, ICoroutineRunner
     {
         CreateEnemy();
         _spawnerRoutine = StartCoroutine(SpawnerRoutine());
-    }
-
-    private void Update()
-    {
     }
 
     public void StopSpawner()
@@ -49,17 +49,29 @@ public class EnemySpawner : MonoBehaviour, ICoroutineRunner
 
     private void CreateEnemy()
     {
-        Debug.Log(_spawnerIndex + " " +  _wavesEnemiesPoints.Count);
+        Debug.Log(_spawnerIndex + " " + _wavesEnemiesPoints.Count);
 
         int index = (_spawnerIndex++) % _wavesEnemiesPoints.Count;
 
-        var _enemy = Instantiate(_enemyPrefab,
-            _wavesEnemiesPoints[index].position, 
+        var enemy = Instantiate(_enemyPrefab,
+            _wavesEnemiesPoints[index].position,
             Quaternion.identity);
 
-        _enemy.transform.Rotate(0, Random.Range(0, 360), 0);
+        enemy.transform.Rotate(0, Random.Range(0, 360), 0);
+
+        RealizeNewStateMachine(enemy);
 
         // Подписываемся на смерть врага
         //_enemy.EnemyDied = _playerCharacter.UpdateKillCount;
+    }
+
+    private void RealizeNewStateMachine(GameObject enemy)
+    {
+        var enemyStateMachine = new EnemyStateMachine(enemy.GetComponent<Healthable>(),
+            enemy.GetComponent<IAnimatable>(), enemy.GetComponent<IShootable>(),
+            this, enemy.transform, _player, enemy.GetComponent<PhysicsEventAdapter>(),
+            enemy.GetComponent<NavMeshAgent>());
+
+        _enemies.Add(enemyStateMachine);
     }
 }

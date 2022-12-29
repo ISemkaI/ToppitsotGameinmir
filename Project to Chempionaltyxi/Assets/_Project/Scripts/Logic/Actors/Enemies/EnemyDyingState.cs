@@ -26,6 +26,6 @@ public class EnemyDyingState : IState
     }
 
     private void SubscribeOnDeathEnd() 
-        => _stateSwitcher.SwitchState<EnemyDyingState>();
+        => _stateSwitcher.SwitchState<EnemyEmptyState>();
 
 }
