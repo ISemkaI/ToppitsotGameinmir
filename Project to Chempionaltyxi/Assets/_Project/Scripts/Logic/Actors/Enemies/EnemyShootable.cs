@@ -21,7 +21,7 @@ public class EnemyShootable : MonoBehaviour, IShootable
 
     public void Shoot(Transform target)
     {
-        var projectile = _projectileFactory.Create(_shootingPoint.position);
+        var projectile = _projectileFactory.Create(_shootingPoint.position, Quaternion.identity);
         projectile.transform.LookAt(target);
     }
 }

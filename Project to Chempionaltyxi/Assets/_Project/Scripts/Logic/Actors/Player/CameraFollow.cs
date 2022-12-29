@@ -19,6 +19,8 @@ public class CameraFollow : MonoBehaviour
         _inputService = AllServices.Instance.GetService<IInputService>();
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        //SetTarget(Target);
     }
 
     private void LateUpdate()
@@ -34,7 +36,7 @@ public class CameraFollow : MonoBehaviour
     {
         Vector3 mouseMovement = _inputService.GetMouseMovement();
         RotationAngleX = Mathf.Clamp(RotationAngleX - mouseMovement.x * _mouseSpeed, -MaxRotationAngleX, MaxRotationAngleX);
-        RotationAngleY += mouseMovement.y * _mouseSpeed;
+        RotationAngleY += mouseMovement.z * _mouseSpeed;
     }
 
     private void FollowTarget()

@@ -1,0 +1,94 @@
+{
+    "name": "StandaloneInput",
+    "maps": [
+        {
+            "name": "Standalone",
+            "id": "52fbe95d-f8bd-44a1-a442-4339ec4b54e2",
+            "actions": [
+                {
+                    "name": "Fire left",
+                    "type": "Button",
+                    "id": "e1981362-208f-4288-a3ac-38a23dfeb9da",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Fire right",
+                    "type": "Button",
+                    "id": "dea74354-d303-48f8-8aa2-3349a3df8f2f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Mouse Horizontal",
+                    "type": "Value",
+                    "id": "06c6fea4-0893-4083-bc82-ac2c38492946",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Mouse Vertical",
+                    "type": "Value",
+                    "id": "8c7bc8dd-ff30-4178-8d31-4d3d691d8a17",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7cd88822-6f60-4a35-9347-536b17da9cb0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "86a4305f-5303-4e4e-bed8-6d84005b7005",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "28c2b6e5-65cf-425f-976b-6fb9c57f63dd",
+                    "path": "<Mouse>/delta/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse Horizontal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53e928a5-e8a0-4601-a16d-4db2d4dd246f",
+                    "path": "<Mouse>/delta/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse Vertical",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

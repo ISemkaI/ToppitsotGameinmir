@@ -13,8 +13,8 @@ public class ProjectileFactoryService : IFactoryProjectile
         ProjectilePrefab = projectile;
     }
 
-    public GameObject Create(Vector3 position, Transform parent = null) 
-        => GameObject.Instantiate(ProjectilePrefab, position, Quaternion.identity, parent) as GameObject;
+    public GameObject Create(Vector3 position, Quaternion rotation, Transform parent = null) 
+        => GameObject.Instantiate(ProjectilePrefab, position, rotation, parent) as GameObject;
 }
 
 public class ProjectilePlayerFactoryService : ProjectileFactoryService, IFactoryPlayerProjectile

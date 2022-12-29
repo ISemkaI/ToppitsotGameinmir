@@ -8,7 +8,6 @@ public class EnemySpawner : MonoBehaviour, ICoroutineRunner
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private Transform _player;
 
-
     [Header("Настройка волн: ")]
     [SerializeField] private List<int> _wavesEnemiesCount;
     [SerializeField] private List<float> _wavesTime;
@@ -17,7 +16,6 @@ public class EnemySpawner : MonoBehaviour, ICoroutineRunner
     private readonly List<EnemyStateMachine> _enemies = new List<EnemyStateMachine>();
 
     private Coroutine _spawnerRoutine;
-    private int _spawnerIndex;
 
     void Start()
     {
@@ -49,20 +47,17 @@ public class EnemySpawner : MonoBehaviour, ICoroutineRunner
 
     private void CreateEnemy()
     {
-        Debug.Log(_spawnerIndex + " " + _wavesEnemiesPoints.Count);
+        foreach(var spawnPoint in _wavesEnemiesPoints)
+        {
+            var enemy = Instantiate(_enemyPrefab,
+                spawnPoint.position,
+                Quaternion.identity);
 
-        int index = (_spawnerIndex++) % _wavesEnemiesPoints.Count;
+            enemy.transform.Rotate(0, Random.Range(0, 360), 0);
+            RealizeNewStateMachine(enemy);
+        }
 
-        var enemy = Instantiate(_enemyPrefab,
-            _wavesEnemiesPoints[index].position,
-            Quaternion.identity);
 
-        enemy.transform.Rotate(0, Random.Range(0, 360), 0);
-
-        RealizeNewStateMachine(enemy);
-
-        // Подписываемся на смерть врага
-        //_enemy.EnemyDied = _playerCharacter.UpdateKillCount;
     }
 
     private void RealizeNewStateMachine(GameObject enemy)
@@ -73,5 +68,8 @@ public class EnemySpawner : MonoBehaviour, ICoroutineRunner
             enemy.GetComponent<NavMeshAgent>());
 
         _enemies.Add(enemyStateMachine);
+
+        // Подписываемся на смерть врага
+        //_enemy.EnemyDied = _playerCharacter.UpdateKillCount;
     }
 }
