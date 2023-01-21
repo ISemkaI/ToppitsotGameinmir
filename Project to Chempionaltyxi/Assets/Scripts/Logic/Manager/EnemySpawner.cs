@@ -1,28 +1,29 @@
 ﻿using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemySpawner : MonoBehaviour, ICoroutineRunner
 {
     [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private Transform _playerTransform;
     [SerializeField] private SceneUI _playerCharacter;
 
+    [Header("Главный менеджер игры")]
+    [SerializeField] private GameManager _gameManager;
+
     [Header("Настройка волн: ")]
+    [SerializeField] private List<Transform> _wavesEnemiesPoints;
     [SerializeField] private List<int> _wavesEnemiesCount;
     [SerializeField] private List<float> _wavesTime;
-    [SerializeField] private List<Transform> _wavesEnemiesPoints;
 
+    private List<EnemyStateMachine> _enemyStateMachines;
     private Coroutine _spawnerRoutine;
-    private int _spawnerIndex;
 
     void Start()
     {
-        CreateEnemy();
+        _enemyStateMachines = new List<EnemyStateMachine>();
         _spawnerRoutine = StartCoroutine(SpawnerRoutine());
-    }
-
-    private void Update()
-    {
     }
 
     public void StopSpawner()
@@ -36,10 +37,9 @@ public class EnemySpawner : MonoBehaviour, ICoroutineRunner
 
     IEnumerator SpawnerRoutine()
     {
-        for (int i = 0; i < _wavesEnemiesCount.Count; i++)
+        for (int i = 0; i < _wavesTime.Count; i++)
         {
-            for (int j = 0; j < _wavesEnemiesCount[i]; j++)
-                CreateEnemy();
+            CreateEnemyWave(i);
 
             yield return new WaitForSeconds(_wavesTime[i]);
         }
@@ -47,19 +47,33 @@ public class EnemySpawner : MonoBehaviour, ICoroutineRunner
         _spawnerRoutine = null;
     }
 
-    private void CreateEnemy()
+    private void CreateEnemyWave(int waveIndex)
     {
-        Debug.Log(_spawnerIndex + " " +  _wavesEnemiesPoints.Count);
-
-        int index = (_spawnerIndex++) % _wavesEnemiesPoints.Count;
-
-        var _enemy = Instantiate(_enemyPrefab,
-            _wavesEnemiesPoints[index].position, 
-            Quaternion.identity);
-
-        _enemy.transform.Rotate(0, Random.Range(0, 360), 0);
-
-        // Подписываемся на смерть врага
-        //_enemy.EnemyDied = _playerCharacter.UpdateKillCount;
+        for (int i = 0; i < _wavesEnemiesPoints.Count; i++)
+            for (int enemiesCount = 0; enemiesCount < _wavesEnemiesCount[waveIndex]; enemiesCount++) 
+                CreateEnemy(_wavesEnemiesPoints[i].position);
     }
+
+    private void CreateEnemy(Vector3 position)
+    {
+        var enemy = Instantiate(_enemyPrefab, position, Quaternion.identity);
+        enemy.transform.Rotate(0, Random.Range(0, 360), 0);
+
+        var enemyStateMachine = new EnemyStateMachine(enemy.GetComponent<Healthable>(),
+            enemy.GetComponent<IAnimatable>(), enemy.GetComponent<IShootable>(),
+            this, enemy.transform, _playerTransform, enemy.GetComponent<PhysicsEventAdapter>(),
+            enemy.GetComponent<NavMeshAgent>());
+        
+        SubscribeEnemyDeath(enemyStateMachine);
+    }
+
+    private void SubscribeEnemyDeath(EnemyStateMachine enemyStateMachine)
+    {
+        enemyStateMachine.EnemyDiedEvent += (_) => _gameManager.IncrementKills();
+        enemyStateMachine.EnemyDiedEvent += DeleteFromEnemiesList;
+        _enemyStateMachines.Add(enemyStateMachine);
+    }
+
+    private void DeleteFromEnemiesList(EnemyStateMachine enemyStateMachine) 
+        => _enemyStateMachines.Remove(enemyStateMachine);
 }

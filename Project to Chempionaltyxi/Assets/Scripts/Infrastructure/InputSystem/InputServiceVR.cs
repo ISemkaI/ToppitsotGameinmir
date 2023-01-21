@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputServiceVR : IInputService
 {
@@ -18,7 +19,12 @@ public class InputServiceVR : IInputService
         throw new NotImplementedException();
     }
 
-    public bool GetShootButton()
+    public bool GetLeftShootButton()
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool GetRightShootButton()
     {
         throw new NotImplementedException();
     }

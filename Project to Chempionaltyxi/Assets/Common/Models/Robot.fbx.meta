@@ -16,7 +16,8 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 1
     motionNodeName: 
-    rigImportErrors: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'RightHand' not found\n"
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -407,7 +408,7 @@ ModelImporter:
       scale: {x: 580.0986, y: 580.0986, z: 580.0986}
     - name: spine
       parentName: metarig.001
-      position: {x: 0, y: 0.00276, z: 0.01097}
+      position: {x: 5.6995233e-12, y: 0.00042160912, z: 0.010265387}
       rotation: {x: 0.8020707, y: -0.00000007119521, z: -0.00000009807185, w: 0.5972291}
       scale: {x: 1, y: 0.9999999, z: 0.9999999}
     - name: spine.001
@@ -744,7 +745,7 @@ ModelImporter:
     feetSpacing: 0
     globalScale: 1
     rootMotionBoneName: 
-    hasTranslationDoF: 1
+    hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}

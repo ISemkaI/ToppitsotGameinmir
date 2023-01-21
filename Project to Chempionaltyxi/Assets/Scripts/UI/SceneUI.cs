@@ -13,7 +13,6 @@ public class SceneUI : MonoBehaviour
     public GameObject WinImage;
     public GameObject DieImage;
     public GameObject UIInterface;
-    public PlayerHealthable PlayerHealth;
     public Text Hptext;
     public Text Killertext;
     public int Health = 100;
@@ -39,6 +38,9 @@ public class SceneUI : MonoBehaviour
 
     }
 
+    public void UpdateHealth(float health)
+        => Hptext.text = Mathf.Floor(health).ToString();
+
     public void Die()
     {
         if (Health <= 0)
@@ -58,7 +60,6 @@ public class SceneUI : MonoBehaviour
 
     private void Update()
     {
-        Health = PlayerHealth.health;
     }
 
     private void WinCheck()
