@@ -16,7 +16,7 @@ public class Healthable : MonoBehaviour
     public UnityEvent<float> DamageTakenEvent;
 
     private PhysicsEventAdapter _physicsEventer;
-    private SceneUI _sceneUI;
+    private GameManagerUI _gameManagerUI;
 
     private void Awake()
     {
@@ -26,7 +26,7 @@ public class Healthable : MonoBehaviour
         _physicsEventer.CollisionEnterEvent.AddListener(CheckCollisionWithProjectile);
 
         if (_updateUIText == true)
-            _sceneUI = GameObject.FindObjectOfType<SceneUI>();
+            _gameManagerUI = GameObject.FindObjectOfType<GameManagerUI>();
     }
 
     public void TakeDamage(float damage)
@@ -35,8 +35,8 @@ public class Healthable : MonoBehaviour
         _health = Mathf.Clamp(_health - damage, 0f, _health);
         actualDamage -= _health;
 
-        if (_updateUIText == true && _sceneUI != null)
-            _sceneUI.UpdateHealth(_health);
+        if (_updateUIText == true && _gameManagerUI != null)
+            _gameManagerUI.UpdateHp((int)_health);
         
         DamageTakenEvent?.Invoke(actualDamage);
 

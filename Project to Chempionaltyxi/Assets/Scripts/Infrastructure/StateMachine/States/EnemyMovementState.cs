@@ -10,7 +10,8 @@ public class EnemyMovementState : IState
 
     private readonly PhysicsEventAdapter _physicsEventAdapter;
 
-    public EnemyMovementState(IStateSwitcher stateSwitcher, Transform enemy, Transform player, NavMeshAgent navMeshAgent, PhysicsEventAdapter physicsEventAdapter)
+    public EnemyMovementState(IStateSwitcher stateSwitcher, Transform enemy, Transform player,
+        NavMeshAgent navMeshAgent, PhysicsEventAdapter physicsEventAdapter)
     {
         _stateSwitcher = stateSwitcher;
 
@@ -27,12 +28,13 @@ public class EnemyMovementState : IState
 
         // Подписываемся на событие остановки
         _physicsEventAdapter.TriggerEnterEvent.AddListener(OnTriggerStopEnter);
+
     }
 
     public void Exit()
     {
         // Отписываемся от события остановки
-        _physicsEventAdapter.TriggerEnterEvent.AddListener(OnTriggerStopEnter);
+        _physicsEventAdapter.TriggerEnterEvent.RemoveListener(OnTriggerStopEnter);
     }
 
     // Слой триггера: TriggerEnemyStop

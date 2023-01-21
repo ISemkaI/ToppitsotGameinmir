@@ -50,8 +50,7 @@ public class EnemyStateMachine : IStateSwitcher
 
         SubscribeOnDeath();
 
-        _currentState = _enemyStates[0];
-        _currentState.Enter();
+        SwitchState<EnemyMovementState>();
     }
 
     // Отписываемся от событий
@@ -65,7 +64,7 @@ public class EnemyStateMachine : IStateSwitcher
     public void SwitchState<TState>() where TState : notnull, IState
     {
         _currentState?.Exit();
-        _currentState = _enemyStates.FirstOrDefault(x => x is IState);
+        _currentState = _enemyStates.FirstOrDefault(x => x is TState);
         _currentState.Enter();
     }
 

@@ -38,7 +38,7 @@ public class PlayerShooting : MonoBehaviour
         if (ready == false)
             return;
 
-        _factoryProjectileService.Create(point.position, point.rotation);
+        _factoryProjectileService.CreateDirectional(point.position, point.rotation, point.forward);
         StartCoroutine(CooldownRoutine(left));
     }
 

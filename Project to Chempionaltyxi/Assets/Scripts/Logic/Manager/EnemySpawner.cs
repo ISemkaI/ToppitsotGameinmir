@@ -7,10 +7,10 @@ public class EnemySpawner : MonoBehaviour, ICoroutineRunner
 {
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private Transform _playerTransform;
-    [SerializeField] private SceneUI _playerCharacter;
 
-    [Header("Главный менеджер игры")]
+    [Header("Менеджеры игры")]
     [SerializeField] private GameManager _gameManager;
+    [SerializeField] private GameManagerUI _gameManagerUI;
 
     [Header("Настройка волн: ")]
     [SerializeField] private List<Transform> _wavesEnemiesPoints;

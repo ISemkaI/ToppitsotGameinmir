@@ -21,8 +21,10 @@ public class EnemyShootingState : IState
         _shootingCoroutine = null;
     }
 
-    public void Enter() 
-        => _shootingCoroutine = _coroutineRunner.StartCoroutine(ShootingRoutine());
+    public void Enter()
+    {
+        _shootingCoroutine = _coroutineRunner.StartCoroutine(ShootingRoutine());
+    }
 
     public void Exit()
     {

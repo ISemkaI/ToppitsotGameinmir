@@ -9,15 +9,19 @@ public class StandardProjectile : MonoBehaviour, IProjectile
 
     [SerializeField] private float _particleSystemSecondsLifetime;
 
-    private Transform _particleDamage;
+    //private Transform _particleDamage;
     private MeshRenderer _renderer;
+    private Vector3 _direction;
     private bool _died;
 
     public float Damage => _damage;
 
+    public void InitBullet(Vector3 direction) 
+        => _direction = direction;
+
     private void Start()
     {
-        _particleDamage = transform.GetChild(0);
+        //_particleDamage = transform.GetChild(0);
         _renderer = GetComponent<MeshRenderer>();
     }
 
@@ -26,7 +30,7 @@ public class StandardProjectile : MonoBehaviour, IProjectile
         if (_died == true)
             return;
 
-        transform.Translate(0, 0, _speed * Time.deltaTime);
+        transform.position += _speed * Time.deltaTime * _direction;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -34,12 +38,12 @@ public class StandardProjectile : MonoBehaviour, IProjectile
         _died = true;
         _renderer.enabled = false;
 
-        GameObject.Instantiate(_particleDamage, transform.position, Quaternion.identity);
+        //GameObject.Instantiate(_particleDamage, transform.position, Quaternion.identity);
 
-        _particleDamage.LookAt(-collision.impulse);
-        _particleDamage.gameObject.SetActive(true);
+        //_particleDamage.LookAt(-collision.impulse);
+        //_particleDamage.gameObject.SetActive(true);
 
-        StartCoroutine(DestroyMeInSeconds(_particleSystemSecondsLifetime));
+        StartCoroutine(DestroyMeInSeconds(0f/*_particleSystemSecondsLifetime*/));
     }
 
     IEnumerator DestroyMeInSeconds(float seconds)
