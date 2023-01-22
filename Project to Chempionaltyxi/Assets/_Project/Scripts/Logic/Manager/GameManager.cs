@@ -18,14 +18,20 @@ public class GameManager : MonoBehaviour
 
     public void Initialize()
     {
-        _playerHealthable.DiedEvent.AddListener(OnLose);
+        _playerHealthable.DiedEvent.AddListener(OnDefeat);
+        
+        //WinEvent.AddListener(OnVictory);
     }
 
-    private void OnLose()
+    private void OnDefeat()
     {
-        _playerHealthable.DiedEvent.RemoveListener(OnLose);
+        _playerHealthable.DiedEvent.RemoveListener(OnDefeat);
+        _gameManagerUI.ShowDefeatScreen();
+    }
 
-        Debug.Log("Lose event");
+    private void OnVictory()
+    {
+        _gameManagerUI.ShowVictoryScreen();
     }
 }
 
