@@ -25,18 +25,22 @@ public class StandardProjectile : MonoBehaviour, IProjectile
         _renderer = GetComponent<MeshRenderer>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (_died == true)
             return;
 
-        transform.position += _speed * Time.deltaTime * _direction;
+        transform.position += _speed * Time.fixedDeltaTime * _direction;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         _died = true;
         _renderer.enabled = false;
+
+        if (collision.gameObject.TryGetComponent<Healthable>(out Healthable healthable))
+            healthable.TakeDamage(_damage);
+
 
         //GameObject.Instantiate(_particleDamage, transform.position, Quaternion.identity);
 

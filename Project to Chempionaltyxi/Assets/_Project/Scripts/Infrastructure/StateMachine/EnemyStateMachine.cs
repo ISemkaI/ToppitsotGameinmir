@@ -44,19 +44,13 @@ public class EnemyStateMachine : IStateSwitcher
         {
             new EnemyMovementState(this, enemy, player, navMeshAgent, physicsEventAdapter),
             new EnemyShootingState(_shootable, coroutineRunner, player),
-            new EnemyDyingState(this, _animatable, EnemyDiedEvent),
+            new EnemyDyingState(this, enemy, _animatable, EnemyDiedEvent),
             new EnemyEmptyState(enemy),
         };
 
         SubscribeOnDeath();
 
         SwitchState<EnemyMovementState>();
-    }
-
-    // Отписываемся от событий
-    ~EnemyStateMachine()
-    {
-        UnSubscribeOnDeath();
     }
 
     // Выходим из прежнего состояния, входим в новое.
@@ -71,10 +65,12 @@ public class EnemyStateMachine : IStateSwitcher
     private void SubscribeOnDeath() 
         => _healthable.DiedEvent?.AddListener(SubscriptionOnDeath);
 
-    private void SubscriptionOnDeath() 
-        => SwitchState<EnemyDyingState>();
+    private void SubscriptionOnDeath()
+    {
+        SwitchState<EnemyDyingState>();
+        UnSubscribeOnDeath();
+    }
 
     private void UnSubscribeOnDeath()
         => _healthable.DiedEvent?.RemoveListener(SubscriptionOnDeath);
-
 }

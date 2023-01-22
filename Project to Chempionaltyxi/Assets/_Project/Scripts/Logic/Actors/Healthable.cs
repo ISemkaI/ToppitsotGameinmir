@@ -15,6 +15,7 @@ public class Healthable : MonoBehaviour
     [HideInInspector]
     public UnityEvent<float> DamageTakenEvent;
 
+    // Это роль projectile проверять коллизии
     private PhysicsEventAdapter _physicsEventer;
     private GameManagerUI _gameManagerUI;
 
@@ -23,7 +24,7 @@ public class Healthable : MonoBehaviour
         if (TryGetComponent(out _physicsEventer) == false)
             _physicsEventer = gameObject.AddComponent<PhysicsEventAdapter>(); 
 
-        _physicsEventer.CollisionEnterEvent.AddListener(CheckCollisionWithProjectile);
+        //_physicsEventer.CollisionEnterEvent.AddListener(CheckCollisionWithProjectile);
 
         if (_updateUIText == true)
             _gameManagerUI = GameObject.FindObjectOfType<GameManagerUI>();
@@ -40,25 +41,26 @@ public class Healthable : MonoBehaviour
         
         DamageTakenEvent?.Invoke(actualDamage);
 
-        if (Mathf.Approximately(_health, 0f))
+        if (Mathf.Approximately(_health, 0f) == true)
             Die();
     }
 
     private void Die()
     {
-        UnsubscribeEvents();
+        //UnsubscribeEvents();
         DiedEvent?.Invoke();
 
-        // За фактическую смерть объекта отвечает State-Machine
+        // За фактическую смерть врага отвечает State-Machine
+        // За проигрыш игрока отвечает GameManager
     }
 
-    private void UnsubscribeEvents() 
+    /*private void UnsubscribeEvents() 
         => _physicsEventer.CollisionEnterEvent.RemoveListener(CheckCollisionWithProjectile);
 
     private void CheckCollisionWithProjectile(Collision other)
     {
         if (other.gameObject.TryGetComponent(out IProjectile projectile))
             TakeDamage(projectile.Damage);
-    }
+    }*/
 
 }

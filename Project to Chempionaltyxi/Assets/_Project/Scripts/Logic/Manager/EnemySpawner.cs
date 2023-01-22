@@ -17,6 +17,10 @@ public class EnemySpawner : MonoBehaviour, ICoroutineRunner
     [SerializeField] private List<int> _wavesEnemiesCount;
     [SerializeField] private List<float> _wavesTime;
 
+    [Header("Разброс позиции спавна")]
+    [SerializeField] private Vector2 _offsetBoundsX;
+    [SerializeField] private Vector2 _offsetBoundsZ;
+
     private List<EnemyStateMachine> _enemyStateMachines;
     private Coroutine _spawnerRoutine;
 
@@ -56,6 +60,10 @@ public class EnemySpawner : MonoBehaviour, ICoroutineRunner
 
     private void CreateEnemy(Vector3 position)
     {
+        // Разброс места спавна
+        position.x += Random.Range(_offsetBoundsX.x, _offsetBoundsX.y);
+        position.z += Random.Range(_offsetBoundsZ.x, _offsetBoundsZ.y);
+        
         var enemy = Instantiate(_enemyPrefab, position, Quaternion.identity);
         enemy.transform.Rotate(0, Random.Range(0, 360), 0);
 

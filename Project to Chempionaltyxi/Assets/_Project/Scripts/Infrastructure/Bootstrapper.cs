@@ -9,8 +9,10 @@ public class Bootstrapper : MonoBehaviour
     [SerializeField] private GameObject _enemyProjectilePrefab;
     [SerializeField] private GameObject _playerProjectilePrefab;
 
-    //[SerializeField] private StandaloneInput _inputActionsStandalone; 
+    [SerializeField] private GameManager _gameManager;
 
+    //[SerializeField] private StandaloneInput _inputActionsStandalone; 
+    
     // Инициализируем сервис-локатор через статику (там конструктор в свойстве)
     private readonly AllServices _allServices = AllServices.Instance; 
 
@@ -18,8 +20,13 @@ public class Bootstrapper : MonoBehaviour
     {
         CheckOtherBootstrapperExistence();
         RegisterServices();
+        InitializeGameManager();
+
         DontDestroyOnLoad(gameObject);
     }
+
+    private void InitializeGameManager() 
+        => _gameManager.Initialize();
 
     private void CheckOtherBootstrapperExistence()
     {
