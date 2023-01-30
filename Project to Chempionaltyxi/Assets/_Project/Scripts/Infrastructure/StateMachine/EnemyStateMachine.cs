@@ -43,8 +43,8 @@ public class EnemyStateMachine : IStateSwitcher
         _enemyStates = new List<IState>
         {
             new EnemyMovementState(this, enemy, player, navMeshAgent, physicsEventAdapter),
-            new EnemyShootingState(_shootable, coroutineRunner, player),
-            new EnemyDyingState(this, enemy, _animatable, EnemyDiedEvent),
+            new EnemyShootingState(_shootable, animatable, coroutineRunner, player),
+            new EnemyDyingState(this, enemy, _animatable),
             new EnemyEmptyState(enemy),
         };
 
@@ -67,6 +67,9 @@ public class EnemyStateMachine : IStateSwitcher
 
     private void SubscriptionOnDeath()
     {
+        EnemyDyingState dyingState = (_enemyStates[2] as EnemyDyingState);
+        dyingState.EnemyDied = EnemyDiedEvent;
+
         SwitchState<EnemyDyingState>();
         UnSubscribeOnDeath();
     }

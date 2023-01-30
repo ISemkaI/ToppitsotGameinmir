@@ -11,7 +11,7 @@ public class GameManagerUI : MonoBehaviour
     [SerializeField] private Fader _faderDefeat;
     [SerializeField] private Fader _faderVictory;
 
-    private void Awake()
+    private void Start()
     {
         // Прячем с начала игры оба экрана
         _faderDefeat.HideImmediately();

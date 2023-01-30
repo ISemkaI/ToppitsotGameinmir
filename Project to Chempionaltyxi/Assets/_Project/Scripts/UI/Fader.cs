@@ -40,8 +40,8 @@ public class Fader : MonoBehaviour
     {
         while (_canvasGroup.alpha > 0.0f)
         {
-            yield return new WaitForSeconds(0.1f);
-            _canvasGroup.alpha -= 0.1f;
+            yield return new WaitForSeconds(0.02f);
+            _canvasGroup.alpha -= 0.02f;
         }
 
         _canvasGroup.alpha = 0.0f;
@@ -51,8 +51,8 @@ public class Fader : MonoBehaviour
     {
         while (_canvasGroup.alpha < 1.0f)
         {
-            yield return new WaitForSeconds(0.1f);
-            _canvasGroup.alpha += 0.1f;
+            yield return new WaitForSeconds(0.02f);
+            _canvasGroup.alpha += 0.02f;
         }
 
         _canvasGroup.alpha = 1.0f;

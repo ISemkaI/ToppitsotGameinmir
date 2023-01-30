@@ -1,9 +1,14 @@
-﻿using UnityEngine.Events;
+﻿using System;
+using UnityEngine.Events;
 
 public interface IAnimatable
 {
-    UnityEvent DiedAnimationPlayedEvent { get; }
+    void SubscribeDeathEndAnimation(UnityAction deathAction);
+    void UnSubscribeDeathEndAnimation(UnityAction deathAction);
 
     void PlayDeathAnimation();
-   
+
+    void EnterShootingState();
+
+    void ShootAnimation();
 }

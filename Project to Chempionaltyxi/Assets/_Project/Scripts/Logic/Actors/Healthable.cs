@@ -6,6 +6,10 @@ public class Healthable : MonoBehaviour
 {
     [SerializeField] private float _health;
     [SerializeField] private bool _updateUIText;
+    [SerializeField] private bool _needPhysicsAdapter = true;
+    [SerializeField] private bool _needParticleDeath = true;
+
+    [SerializeField] private GameObject _particleDeath;
 
     public float Health => _health;
 
@@ -19,10 +23,13 @@ public class Healthable : MonoBehaviour
     private PhysicsEventAdapter _physicsEventer;
     private GameManagerUI _gameManagerUI;
 
+    private bool _isAlive = true;
+
     private void Awake()
     {
-        if (TryGetComponent(out _physicsEventer) == false)
-            _physicsEventer = gameObject.AddComponent<PhysicsEventAdapter>(); 
+        if (_needPhysicsAdapter == true)
+            if (TryGetComponent(out _physicsEventer) == false)
+                _physicsEventer = gameObject.AddComponent<PhysicsEventAdapter>(); 
 
         //_physicsEventer.CollisionEnterEvent.AddListener(CheckCollisionWithProjectile);
 
@@ -47,7 +54,14 @@ public class Healthable : MonoBehaviour
 
     private void Die()
     {
+        if (_isAlive == false) 
+            return;
+
         //UnsubscribeEvents();
+        if (_needParticleDeath == true)
+            _particleDeath.SetActive(true);
+
+        _isAlive = false;
         DiedEvent?.Invoke();
 
         // За фактическую смерть врага отвечает State-Machine

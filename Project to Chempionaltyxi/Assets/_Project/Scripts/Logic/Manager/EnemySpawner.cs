@@ -16,10 +16,13 @@ public class EnemySpawner : MonoBehaviour, ICoroutineRunner
     [SerializeField] private List<Transform> _wavesEnemiesPoints;
     [SerializeField] private List<int> _wavesEnemiesCount;
     [SerializeField] private List<float> _wavesTime;
+    [SerializeField] private float _startDelay;
 
     [Header("Разброс позиции спавна")]
     [SerializeField] private Vector2 _offsetBoundsX;
     [SerializeField] private Vector2 _offsetBoundsZ;
+
+    public System.Action SpawnerEndEvent;
 
     private List<EnemyStateMachine> _enemyStateMachines;
     private Coroutine _spawnerRoutine;
@@ -27,7 +30,7 @@ public class EnemySpawner : MonoBehaviour, ICoroutineRunner
     void Start()
     {
         _enemyStateMachines = new List<EnemyStateMachine>();
-        _spawnerRoutine = StartCoroutine(SpawnerRoutine());
+        StartCoroutine(SpawnerStartDelay());
     }
 
     public void StopSpawner()
@@ -39,6 +42,12 @@ public class EnemySpawner : MonoBehaviour, ICoroutineRunner
         }    
     }
 
+    IEnumerator SpawnerStartDelay()
+    {
+        yield return new WaitForSeconds(_startDelay);
+        _spawnerRoutine = StartCoroutine(SpawnerRoutine());
+    }
+
     IEnumerator SpawnerRoutine()
     {
         for (int i = 0; i < _wavesTime.Count; i++)
@@ -48,6 +57,7 @@ public class EnemySpawner : MonoBehaviour, ICoroutineRunner
             yield return new WaitForSeconds(_wavesTime[i]);
         }
 
+        SpawnerEndEvent?.Invoke();
         _spawnerRoutine = null;
     }
 
@@ -79,6 +89,7 @@ public class EnemySpawner : MonoBehaviour, ICoroutineRunner
     {
         enemyStateMachine.EnemyDiedEvent += (_) => _gameManager.IncrementKills();
         enemyStateMachine.EnemyDiedEvent += DeleteFromEnemiesList;
+
         _enemyStateMachines.Add(enemyStateMachine);
     }
 

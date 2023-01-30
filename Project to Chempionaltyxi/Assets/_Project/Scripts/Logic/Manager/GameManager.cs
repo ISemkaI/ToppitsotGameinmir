@@ -8,7 +8,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameManagerUI _gameManagerUI;
     [SerializeField] private Healthable _playerHealthable;
 
+    [SerializeField] private List<Animator> _spaceShipsAnimators;
+
     private int _killsCount = 0;
+    private bool _spawnerEnd;
 
     public void IncrementKills()
     {
@@ -29,8 +32,14 @@ public class GameManager : MonoBehaviour
         _gameManagerUI.ShowDefeatScreen();
     }
 
+    private void SpawnerEnd()
+    { }
+
     private void OnVictory()
     {
+        foreach (var animatorShip in _spaceShipsAnimators)
+            animatorShip.SetTrigger("End");
+
         _gameManagerUI.ShowVictoryScreen();
     }
 }

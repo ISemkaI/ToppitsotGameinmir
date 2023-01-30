@@ -50,6 +50,6 @@ public class EnemyMovementState : IState
     private void FaceToPlayer()
     {
         _enemy.LookAt(_player.position);
-        _enemy.localEulerAngles = new Vector3(0f, _player.localEulerAngles.y, 0f);
+        //_enemy.localEulerAngles = new Vector3(0f, _player.localEulerAngles.y, 0f);
     }
 }
