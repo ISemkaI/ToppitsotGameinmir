@@ -1,9 +1,129 @@
 fileFormatVersion: 2
-guid: f1a9482772e5c2542bdd7780bf4c44d7
+guid: cf1d720694dbe744e94292a35449e451
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart11Mtl
+    second: {fileID: 2100000, guid: 219d5fd854798fa448bdeda251e4b18a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart12Mtl
+    second: {fileID: 2100000, guid: 8f3638633aa79134082dd4cdc30e6c71, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart13Mtl
+    second: {fileID: 2100000, guid: 9aa9470deeb70b74c93d56179a37d298, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart14Mtl
+    second: {fileID: 2100000, guid: 9bb4c8f24f2360b4c8a884510d2dff04, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart15Mtl
+    second: {fileID: 2100000, guid: e63b29c0ad61eec44905aa08af67f8fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart16Mtl
+    second: {fileID: 2100000, guid: 9c4fed5c4d5005b4ea3445d367282b26, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart17Mtl
+    second: {fileID: 2100000, guid: 5bdece2e571be4642ae984fe75cc28e5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart18Mtl
+    second: {fileID: 2100000, guid: 38868ba2c163a4d4a8e501a71b77535b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart1Mtl
+    second: {fileID: 2100000, guid: 23f89923fcbc05c48b2e01fca5a417f3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart20Mtl
+    second: {fileID: 2100000, guid: cc4f6790071d9cb4dbef860374de0b15, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart21Mtl
+    second: {fileID: 2100000, guid: d1a1a0f896728a14fa259318ff2417e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart22Mtl
+    second: {fileID: 2100000, guid: 4063576bfb6e4f4409a63c0091f1e46f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart23Mtl
+    second: {fileID: 2100000, guid: accd69046b1e14c4198f8bf9d3ea888a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart26Mtl
+    second: {fileID: 2100000, guid: 34f291dea43bf944fb9be00423ddc67b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart27Mtl
+    second: {fileID: 2100000, guid: b8f3b8b9e895b414d9792636a489a29a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart28Mtl
+    second: {fileID: 2100000, guid: f5b393dee08a9ca47803409bf3ace495, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart2Mtl
+    second: {fileID: 2100000, guid: 1895c7ce88384874aae7fee8d00ac277, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart36Mtl
+    second: {fileID: 2100000, guid: ab76fdb4bb58c6c4f82de8f8ffb90dca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart4Mtl
+    second: {fileID: 2100000, guid: 3ca177d9f01e4a54cb97de995cf5c8b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart5Mtl
+    second: {fileID: 2100000, guid: d522b115588119a4f86a56657bce8765, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart6Mtl
+    second: {fileID: 2100000, guid: 5b174ceaa70a95048af515ae4c4c04ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart7Mtl
+    second: {fileID: 2100000, guid: 1999ecd7545a44945a5bebc9b4057093, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart8Mtl
+    second: {fileID: 2100000, guid: d1eac9858b33a304fa0113f77f68755f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Meshpart9Mtl
+    second: {fileID: 2100000, guid: fba680a39adf3a544a9f987ad731822b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
