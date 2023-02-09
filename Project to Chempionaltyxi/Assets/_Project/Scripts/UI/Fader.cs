@@ -9,7 +9,7 @@ public class Fader : MonoBehaviour
     private Coroutine _fadeInCoroutine;
     private Coroutine _fadeOutCoroutine;
 
-    private void Awake() 
+    private void OnEnable() 
         => _canvasGroup = GetComponent<CanvasGroup>();
 
     public void FadeIn()

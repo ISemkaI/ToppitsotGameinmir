@@ -24,15 +24,27 @@ public class GameManagerUI : MonoBehaviour
     public void UpdateHp(int hp)
         => _hpPlayer.text = hp.ToString();
 
-    public void ShowDefeatScreen() 
-        => _faderDefeat.FadeOut();
+    public void ShowDefeatScreen()
+    {
+        _faderDefeat.gameObject.SetActive(true);
+        _faderDefeat.FadeOut();
+    }
 
     public void ShowVictoryScreen()
-        => _faderVictory.FadeOut();
+    {
+        _faderDefeat.gameObject.SetActive(true);
+        _faderVictory.FadeOut();
+    }
 
     public void HideDefeatScreen()
-        => _faderDefeat.FadeIn();
+    {
+        _faderDefeat.gameObject.SetActive(true);
+        _faderDefeat.FadeIn();
+    }
 
-    public void HideVictoryScreen() 
-        => _faderVictory.FadeIn();
+    public void HideVictoryScreen()
+    {
+        _faderDefeat.gameObject.SetActive(true);
+        _faderVictory.FadeIn();
+    }
 }
