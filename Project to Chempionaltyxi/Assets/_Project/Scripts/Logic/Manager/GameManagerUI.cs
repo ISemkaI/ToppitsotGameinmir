@@ -14,8 +14,8 @@ public class GameManagerUI : MonoBehaviour
     private void Start()
     {
         // Прячем с начала игры оба экрана
-        _faderDefeat.HideImmediately();
-        _faderVictory.HideImmediately();
+        //_faderDefeat.HideImmediately();
+        //_faderVictory.HideImmediately();
     }
 
     public void UpdateKillCounts(int killCount)

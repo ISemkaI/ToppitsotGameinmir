@@ -2,10 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using Valve.VR;
 
 // Move to camera
 public class PlayerShooting : MonoBehaviour
 {
+    public SteamVR_Action_Boolean FireInput;
+
     [SerializeField] private Transform _leftGunPoint;
     [SerializeField] private Transform _rightGunPoint;
 
@@ -25,10 +29,10 @@ public class PlayerShooting : MonoBehaviour
 
     private void Update()
     {
-        if (_inputService.GetLeftShootButton() == true)
+        if (FireInput.GetStateDown(SteamVR_Input_Sources.LeftHand))
             ProcessFire(_leftGunPoint, left: true, _readyLeft);
 
-        if (_inputService.GetRightShootButton() == true)
+        if (FireInput.GetStateDown(SteamVR_Input_Sources.RightHand))
             ProcessFire(_rightGunPoint, left: false, _readyRight);
 
     }
